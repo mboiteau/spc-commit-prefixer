@@ -3,12 +3,17 @@
   "displayName": "SPC Commit Prefixer",
   "description": "This Visual Studio Code extension automates the process of adding a prefix for your commits in the projects of Smartpoint Cloud.",
   "version": "0.0.1",
+  "publisher": "maxime",
   "engines": {
     "vscode": "^1.77.0"
   },
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mboiteau/spc-commit-prefixer"
+  },
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
