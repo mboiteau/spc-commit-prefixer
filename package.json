@@ -19,7 +19,7 @@
         "SPC-CommitPrefixer.pluginNames": {
           "type": "array",
           "default": [],
-          "description": "The name of the plugin that will be added to the commit message."
+          "description": "The name of the plugins that can be choose to add to the commit message."
         },
         "SPC-CommitPrefixer.commitPrefixes": {
           "type": "array",
