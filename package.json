@@ -48,6 +48,7 @@
       ]
     }
   },
+  "icon": "images/icon.png",
   "scripts": {
     "vscode:prepublish": "yarn run package",
     "compile": "webpack",
