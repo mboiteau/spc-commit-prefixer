@@ -1,8 +1,6 @@
 import * as vscode from "vscode";
 import { GitExtension, Repository } from "./api/git";
 
-let commitMessage: string;
-
 function getGitExtension() {
   const vscodeGit = vscode.extensions.getExtension<GitExtension>("vscode.git");
   const gitExtension = vscodeGit && vscodeGit.exports;
@@ -10,8 +8,14 @@ function getGitExtension() {
 }
 
 async function buildCommit(repository: Repository) {
-  const { pluginName, commitPrefixes } =
+  let commitMessage: string = "";
+
+  const { pluginNames, commitPrefixes } =
     vscode.workspace.getConfiguration("SPC-CommitPrefixer");
+
+  const selectedPluginName = await vscode.window.showQuickPick(pluginNames, {
+    placeHolder: "Select the plugin that you want to apply to your commit",
+  });
   const selectedPrefix = await vscode.window.showQuickPick(commitPrefixes, {
     placeHolder: "Select a prefix that you want to apply to your commit",
   });
@@ -22,7 +26,7 @@ async function buildCommit(repository: Repository) {
       placeHolder: "Enter your commit message",
       prompt: "Enter your commit message",
     });
-    commitMessage = `${selectedPrefix}(${pluginName}): ${userCommitInput}`;
+    commitMessage = `${selectedPrefix}(${selectedPluginName}): ${userCommitInput}`;
   }
   repository.inputBox.value = commitMessage;
 }
