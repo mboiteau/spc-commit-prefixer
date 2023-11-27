@@ -13,21 +13,35 @@ async function buildCommit(repository: Repository) {
   const { pluginNames, commitPrefixes } =
     vscode.workspace.getConfiguration("SPC-CommitPrefixer");
 
-  const selectedPluginName = await vscode.window.showQuickPick(pluginNames, {
-    placeHolder: "Select the plugin that you want to apply to your commit",
-  });
+  const selectedPluginName = await vscode.window.showQuickPick(
+    [...pluginNames, "Generic update"],
+    {
+      placeHolder: "Select the plugin that you want to apply to your commit",
+    }
+  );
   const selectedPrefix = await vscode.window.showQuickPick(commitPrefixes, {
     placeHolder: "Select a prefix that you want to apply to your commit",
   });
 
-  if (selectedPrefix) {
-    const userCommitInput = await vscode.window.showInputBox({
-      title: "Commit Message",
-      placeHolder: "Enter your commit message",
-      prompt: "Enter your commit message",
-    });
-    commitMessage = `${selectedPrefix}(${selectedPluginName}): ${userCommitInput}`;
+  if (!selectedPrefix) {
+    return;
   }
+
+  const userCommitInput = await vscode.window.showInputBox({
+    title: "Commit Message",
+    placeHolder: "Enter your commit message",
+    prompt: "Enter your commit message",
+  });
+
+  if (!userCommitInput) {
+    return;
+  }
+
+  const transformedSelectedPluginName =
+    !selectedPluginName || selectedPluginName === "Generic update"
+      ? ""
+      : `(${selectedPluginName})`;
+  commitMessage = `${selectedPrefix}${transformedSelectedPluginName}: ${userCommitInput}`;
   repository.inputBox.value = commitMessage;
 }
 
