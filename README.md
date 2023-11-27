@@ -21,6 +21,14 @@ This extension contributes the following settings:
 
 ## Release Notes
 
-### 1.0.0
+## [0.0.1] - 2023-14-4
 
-Initial release of spc-commit-prefixer
+### Added
+
+- Initial release
+
+## [0.0.2] - 2023-11-27
+
+### Changed
+
+- Add the possibility to write empty plugin name or select the last option "Generic update" to put empty plugin name to the commit message.
